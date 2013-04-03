@@ -1,5 +1,7 @@
 {
     "name": "theapi/robocopbundle",
+    "type": "symfony-bundle",
+    "description": "Manage incoming email from the Swann CCTV system",
     "keywords":     ["CCTV", "Swann", "Symfony2"],
     "homepage":     "https://github.com/theapi/RobocopBundle",
     "authors":      [
@@ -12,6 +14,6 @@
         "php": ">=5.3.0",
         "symfony/framework-standard-edition": "2.2.0",
         "messaged/php-mime-mail-parser": "dev-master"
-    },
+    }
     
 }
