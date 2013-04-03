@@ -30,6 +30,13 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('days_old')->defaultValue(31)->end()
                     ->end()
                 ->end()
+                ->arrayNode('mailer_sender')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('from')->defaultNull()->end()
+                        ->scalarNode('to')->defaultNull()->end()
+                    ->end()
+                ->end()
              ->end()
         ;
 

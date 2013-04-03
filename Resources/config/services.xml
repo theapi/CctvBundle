@@ -9,6 +9,7 @@
         <parameter key="theapi_robocop.image_manager.class">Theapi\RobocopBundle\ImageManager</parameter>
         <parameter key="theapi_robocop.process.class">Symfony\Component\Process\Process</parameter>
         <parameter key="theapi_robocop.mail_parser.class">Theapi\RobocopBundle\MailParser</parameter>
+        <parameter key="theapi_robocop.mail_sender.class">Theapi\RobocopBundle\MailSender</parameter>
     </parameters>
 
     <services>
@@ -25,6 +26,11 @@
         
         <service id="theapi_robocop.mail_parser" class="%theapi_robocop.mail_parser.class%">
             <argument>%theapi_robocop.save_dir%</argument>
+        </service>
+        
+        <service id="theapi_robocop.mail_sender" class="%theapi_robocop.mail_sender.class%">
+            <argument type="service" id="mailer" />
+            <argument>%theapi_robocop.mailer_sender%</argument>
         </service>
         
     </services>

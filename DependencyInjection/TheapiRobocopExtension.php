@@ -29,6 +29,7 @@ class TheapiRobocopExtension extends Extension
 
         $container->setParameter('theapi_robocop.save_dir', $config['save_dir']);
         $container->setParameter('theapi_robocop.image_settings', $config['image_settings']);
+        $container->setParameter('theapi_robocop.mailer_sender', $config['mailer_sender']);
 
     }
 }
