@@ -1,0 +1,16 @@
+{
+    "name": "theapi/robocopbundle",
+    "keywords":     ["CCTV", "Symfony2"],
+    "homepage":     "https://github.com/theapi/robocopbundle",
+    "authors":      [
+        {
+            "name": "Peter Clarke"
+        }
+    ],
+
+    "require": {
+        "symfony/framework-standard-edition": "2.2.0"
+        "messaged/php-mime-mail-parser": "dev-master"
+    },
+    
+}

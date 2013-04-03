@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    
+    <parameters>
+        <parameter key="theapi_robocop.image_manager.class">Theapi\RobocopBundle\ImageManager</parameter>
+        <parameter key="theapi_robocop.process.class">Symfony\Component\Process\Process</parameter>
+        <parameter key="theapi_robocop.mail_parser.class">Theapi\RobocopBundle\MailParser</parameter>
+    </parameters>
+
+    <services>
+    
+        <service id="theapi_robocop.process" class="%theapi_robocop.process.class%" public="false">
+            <argument>null</argument>
+        </service>
+    
+        <service id="theapi_robocop.image_manager" class="%theapi_robocop.image_manager.class%">
+            <argument>%theapi_robocop.save_dir%</argument>
+            <argument>%theapi_robocop.image_settings%</argument>
+            <argument type="service" id="theapi_robocop.process" />
+        </service>
+        
+        <service id="theapi_robocop.mail_parser" class="%theapi_robocop.mail_parser.class%">
+            <argument>%theapi_robocop.save_dir%</argument>
+        </service>
+        
+    </services>
+    
+</container>
