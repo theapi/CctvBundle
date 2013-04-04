@@ -18,6 +18,7 @@
     "autoload": {
         "psr-0": { "Theapi\\RobocopBundle": "" }
     },
-    "target-dir": "Theapi/RobocopBundle"
+    "target-dir": "Theapi/RobocopBundle",
+    "minimum-stability": "dev"
     
 }
