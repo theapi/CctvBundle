@@ -12,13 +12,12 @@
 
     "require": {
         "php": ">=5.3.0",
-        "messaged/php-mime-mail-parser": "dev-master"
+        "messaged/php-mime-mail-parser": "dev-master@dev"
     },
     
     "autoload": {
         "psr-0": { "Theapi\\RobocopBundle": "" }
     },
-    "target-dir": "Theapi/RobocopBundle",
-    "minimum-stability": "dev"
+    "target-dir": "Theapi/RobocopBundle"
     
 }
