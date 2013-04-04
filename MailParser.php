@@ -32,7 +32,7 @@ class MailParser
   /**
    * Mail sending object
    */
-  protected $mailer;
+  protected $mailSender;
 
   /**
    * Constructor
@@ -65,8 +65,8 @@ class MailParser
     error_log(print_r($contents, 1), 3, $this->saveDir . "/incoming_mail.txt");
   }
 
-  public function setMailer($mailer) {
-    $this->mailer = $mailer;
+  public function setMailerSender($mailSender) {
+    $this->mailSender = $mailSender;
   }
 
   /**
@@ -92,10 +92,10 @@ class MailParser
   }
 
   protected function passOnMessage() {
-    if (!empty($this->mailer)) {
+    if (!empty($this->mailSender)) {
       $subject = '(Robocop) ' . $this->parser->getHeader('subject');
       $body = $this->parser->getMessageBody('text');
-      $sent = $this->mailer->sendMail($subject, $body, null);
+      $sent = $this->mailSender->sendMail($subject, $body, null);
     }
   }
 
