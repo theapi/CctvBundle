@@ -10,6 +10,8 @@ Setting up the bundle
 > Email attachments are compared for how different they are from each other by [ImageMagick](http://www.imagemagick.org).
 >
 > Images that are different enough get made into a video with [avconv](http://libav.org)
+>
+> See the [installation instructions](install_requirements.md) for these requirements.
 
 
 Ultimately, the RobocopBundle files should be downloaded to the
