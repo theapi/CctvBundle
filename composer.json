@@ -12,7 +12,6 @@
 
     "require": {
         "php": ">=5.3.0",
-        "symfony/framework-standard-edition": "v2.2.0",
         "messaged/php-mime-mail-parser": "*@dev"
     },
     
