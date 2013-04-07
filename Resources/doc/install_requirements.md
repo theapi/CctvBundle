@@ -1,7 +1,19 @@
 Installing the requirements
 ===========================
 
-### PHP PECL MailParse
+>These instructions are for Ubuntu.
+
+### 1) ImageMagick
+```
+sudo apt-get install imagemagick
+```
+
+### 2) avconv
+```
+sudo apt-get install libav-tools
+```
+
+### 3) PHP PECL MailParse
 
 The MailParse extension is can be downloaded from here: [http://pecl.php.net/package/mailparse](http://pecl.php.net/package/mailparse)
 
