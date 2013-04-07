@@ -47,12 +47,12 @@ class MailParser
     $this->parser->setStream(STDIN);
     $subject = $this->parser->getHeader('subject');
     switch ($subject) {
+      // TODO: Make incoming mail subject switch case configurable
       case 'from your dvr\'s snap jpg':
         $this->processSnaps();
         break;
       default:
         $this->passOnMessage();
-        //$this->processSnaps();
         break;
     }
   }

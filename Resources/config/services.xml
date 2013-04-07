@@ -26,6 +26,9 @@
         
         <service id="theapi_robocop.mail_parser" class="%theapi_robocop.mail_parser.class%">
             <argument>%theapi_robocop.save_dir%</argument>
+            <call method="setMailerSender">
+             <argument type="service" id="theapi_robocop.mail_sender" />
+            </call>
         </service>
         
         <service id="theapi_robocop.mail_sender" class="%theapi_robocop.mail_sender.class%">
