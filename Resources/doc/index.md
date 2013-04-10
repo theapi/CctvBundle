@@ -15,7 +15,7 @@ Setting up the bundle
 
 
 Ultimately, the CctvBundle files should be downloaded to the
-`vendor/theapi/robocopbundle/Theapi/CctvBundle` directory.
+`vendor/theapi/cctvbundle/Theapi/CctvBundle` directory.
 
 **Using composer**
 
