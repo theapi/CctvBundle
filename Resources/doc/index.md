@@ -14,15 +14,15 @@ Setting up the bundle
 > See the [installation instructions](install_requirements.md) for these requirements.
 
 
-Ultimately, the RobocopBundle files should be downloaded to the
-`vendor/theapi/robocopbundle/Theapi/RobocopBundle` directory.
+Ultimately, the CctvBundle files should be downloaded to the
+`vendor/theapi/robocopbundle/Theapi/CctvBundle` directory.
 
 **Using composer**
 
 Simply run assuming you have installed composer.phar or composer binary:
 
 ``` bash
-$ composer require theapi/robocopbundle
+$ composer require theapi/cctvbundle
 ```
 
 ### B) Enable the bundle
