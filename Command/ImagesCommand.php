@@ -1,7 +1,7 @@
 <?php
-namespace Theapi\RobocopBundle\Command;
+namespace Theapi\CctvBundle\Command;
 
-use Theapi\RobocopBundle\ImageManager;
+use Theapi\CctvBundle\ImageManager;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command,
@@ -17,7 +17,7 @@ class ImagesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('robocop:images')
+            ->setName('cctv:images')
             ->setDescription('Analyse images that have been received')
             ->addArgument(
                 'date',
@@ -46,7 +46,7 @@ Compare images for the amount of difference in <info>dir</info>.
     {
       $container = $this->getContainer();
 
-      $imageManager = $container->get('theapi_robocop.image_manager');
+      $imageManager = $container->get('theapi_cctv.image_manager');
       $imageManager->setOutput($output);
 
       $date = $input->getArgument('date');

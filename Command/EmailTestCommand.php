@@ -1,7 +1,7 @@
 <?php
-namespace Theapi\RobocopBundle\Command;
+namespace Theapi\CctvBundle\Command;
 
-use Theapi\RobocopBundle\MailSender;
+use Theapi\CctvBundle\MailSender;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command,
@@ -17,7 +17,7 @@ class EmailTestCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('robocop:email:test')
+            ->setName('cctv:email:test')
             ->addOption(
                'spool',
                null,
@@ -32,7 +32,7 @@ class EmailTestCommand extends ContainerAwareCommand
     {
       $container = $this->getContainer();
 
-      $mailer = $container->get('theapi_robocop.mail_sender');
+      $mailer = $container->get('theapi_cctv.mail_sender');
 
       $viaSpool = $input->getOption('spool');
       $sent = $mailer->sendTestMail($viaSpool);

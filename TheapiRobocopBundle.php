@@ -1,9 +1,9 @@
 <?php
 
-namespace Theapi\RobocopBundle;
+namespace Theapi\CctvBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class TheapiRobocopBundle extends Bundle
+class TheapiCctvBundle extends Bundle
 {
 }

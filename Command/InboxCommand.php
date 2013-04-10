@@ -1,7 +1,7 @@
 <?php
-namespace Theapi\RobocopBundle\Command;
+namespace Theapi\CctvBundle\Command;
 
-use Theapi\RobocopBundle\MailParser;
+use Theapi\CctvBundle\MailParser;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command,
@@ -14,7 +14,7 @@ class InboxCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('robocop:inbox')
+            ->setName('cctv:inbox')
             ->setDescription('Mail inbox for handling incoming mail')
             ->setHelp('
 The <info>%command.name%</info> command process incoming mail from an MTA (Postfix).
@@ -28,7 +28,7 @@ In ~/.redirect for the mail box to be processed, put:
     {
       $container = $this->getContainer();
 
-      $mailParser = $container->get('theapi_robocop.mail_parser');
+      $mailParser = $container->get('theapi_cctv.mail_parser');
       $mailParser->processIncomingMail();
     }
 

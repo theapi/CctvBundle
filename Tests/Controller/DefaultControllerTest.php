@@ -1,6 +1,6 @@
 <?php
 
-namespace Theapi\RobocopBundle\Tests\Controller;
+namespace Theapi\CctvBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

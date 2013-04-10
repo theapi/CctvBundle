@@ -6,34 +6,34 @@
 
     
     <parameters>
-        <parameter key="theapi_robocop.image_manager.class">Theapi\RobocopBundle\ImageManager</parameter>
-        <parameter key="theapi_robocop.process.class">Symfony\Component\Process\Process</parameter>
-        <parameter key="theapi_robocop.mail_parser.class">Theapi\RobocopBundle\MailParser</parameter>
-        <parameter key="theapi_robocop.mail_sender.class">Theapi\RobocopBundle\MailSender</parameter>
+        <parameter key="theapi_cctv.image_manager.class">Theapi\CctvBundle\ImageManager</parameter>
+        <parameter key="theapi_cctv.process.class">Symfony\Component\Process\Process</parameter>
+        <parameter key="theapi_cctv.mail_parser.class">Theapi\CctvBundle\MailParser</parameter>
+        <parameter key="theapi_cctv.mail_sender.class">Theapi\CctvBundle\MailSender</parameter>
     </parameters>
 
     <services>
     
-        <service id="theapi_robocop.process" class="%theapi_robocop.process.class%" public="false">
+        <service id="theapi_cctv.process" class="%theapi_cctv.process.class%" public="false">
             <argument>null</argument>
         </service>
     
-        <service id="theapi_robocop.image_manager" class="%theapi_robocop.image_manager.class%">
-            <argument>%theapi_robocop.save_dir%</argument>
-            <argument>%theapi_robocop.image_settings%</argument>
-            <argument type="service" id="theapi_robocop.process" />
+        <service id="theapi_cctv.image_manager" class="%theapi_cctv.image_manager.class%">
+            <argument>%theapi_cctv.save_dir%</argument>
+            <argument>%theapi_cctv.image_settings%</argument>
+            <argument type="service" id="theapi_cctv.process" />
         </service>
         
-        <service id="theapi_robocop.mail_parser" class="%theapi_robocop.mail_parser.class%">
-            <argument>%theapi_robocop.save_dir%</argument>
+        <service id="theapi_cctv.mail_parser" class="%theapi_cctv.mail_parser.class%">
+            <argument>%theapi_cctv.save_dir%</argument>
             <call method="setMailerSender">
-             <argument type="service" id="theapi_robocop.mail_sender" />
+             <argument type="service" id="theapi_cctv.mail_sender" />
             </call>
         </service>
         
-        <service id="theapi_robocop.mail_sender" class="%theapi_robocop.mail_sender.class%">
+        <service id="theapi_cctv.mail_sender" class="%theapi_cctv.mail_sender.class%">
             <argument type="service" id="mailer" />
-            <argument>%theapi_robocop.mailer_sender%</argument>
+            <argument>%theapi_cctv.mailer_sender%</argument>
         </service>
         
     </services>

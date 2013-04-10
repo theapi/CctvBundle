@@ -1,5 +1,5 @@
 <?php
-namespace Theapi\RobocopBundle;
+namespace Theapi\CctvBundle;
 
 /**
  *

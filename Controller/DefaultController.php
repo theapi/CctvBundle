@@ -1,6 +1,6 @@
 <?php
 
-namespace Theapi\RobocopBundle\Controller;
+namespace Theapi\CctvBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -8,7 +8,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $name = 'Robocop';
-        return $this->render('TheapiRobocopBundle:Default:index.html.twig', array('name' => $name));
+        $name = 'CCTV';
+        return $this->render('TheapiCctvBundle:Default:index.html.twig', array('name' => $name));
     }
 }

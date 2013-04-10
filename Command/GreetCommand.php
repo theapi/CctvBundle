@@ -1,5 +1,5 @@
 <?php
-namespace Theapi\RobocopBundle\Command;
+namespace Theapi\CctvBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,7 +13,7 @@ class GreetCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('robocop:greet')
+            ->setName('cctv:greet')
             ->setDescription('Greet someone')
             ->addArgument(
                 'name',

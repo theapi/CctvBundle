@@ -1,6 +1,6 @@
 Setting up the bundle
 =====================
-### A) Download RobocopBundle
+### A) Download CctvBundle
 
 **Note:**
 
@@ -37,7 +37,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Theapi\RobocopBundle\TheapiRobocopBundle(),
+        new Theapi\CctvBundle\TheapiCctvBundle(),
     );
 }
 ```

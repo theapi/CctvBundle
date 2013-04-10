@@ -1,6 +1,6 @@
 <?php
 
-namespace Theapi\RobocopBundle\DependencyInjection;
+namespace Theapi\CctvBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('theapi_robocop');
+        $rootNode = $treeBuilder->root('theapi_cctv');
 
         $rootNode
             ->children()

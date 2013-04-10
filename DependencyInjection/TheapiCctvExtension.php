@@ -1,6 +1,6 @@
 <?php
 
-namespace Theapi\RobocopBundle\DependencyInjection;
+namespace Theapi\CctvBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class TheapiRobocopExtension extends Extension
+class TheapiCctvExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -27,9 +27,9 @@ class TheapiRobocopExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $container->setParameter('theapi_robocop.save_dir', $config['save_dir']);
-        $container->setParameter('theapi_robocop.image_settings', $config['image_settings']);
-        $container->setParameter('theapi_robocop.mailer_sender', $config['mailer_sender']);
+        $container->setParameter('theapi_cctv.save_dir', $config['save_dir']);
+        $container->setParameter('theapi_cctv.image_settings', $config['image_settings']);
+        $container->setParameter('theapi_cctv.mailer_sender', $config['mailer_sender']);
 
     }
 }

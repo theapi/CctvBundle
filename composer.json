@@ -1,9 +1,9 @@
 {
-    "name": "theapi/robocopbundle",
+    "name": "theapi/cctvbundle",
     "type": "symfony-bundle",
     "description": "Manage incoming email from the Swann CCTV system",
     "keywords":     ["CCTV", "Swann", "mailparse", "Symfony2"],
-    "homepage":     "https://github.com/theapi/RobocopBundle",
+    "homepage":     "https://github.com/theapi/CctvBundle",
     "authors":      [
         {
             "name": "Peter Clarke"
@@ -16,8 +16,8 @@
     },
     
     "autoload": {
-        "psr-0": { "Theapi\\RobocopBundle": "" }
+        "psr-0": { "Theapi\\CctvBundle": "" }
     },
-    "target-dir": "Theapi/RobocopBundle"
+    "target-dir": "Theapi/CctvBundle"
     
 }

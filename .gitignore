@@ -13,3 +13,9 @@ app/config/parameters.ini
 app/config/parameters.yml
 
 composer.lock
+
+# Eclipse
+.buildpath
+.project
+.settings
+
