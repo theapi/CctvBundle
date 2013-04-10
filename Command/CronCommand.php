@@ -21,7 +21,7 @@ class CronCommand extends ContainerAwareCommand
             ->setName('cctv:cron')
             ->setDescription('Commands to be run daily by cron')
             ->setHelp('
-15 7 * * * %kernel.root_dir% %command.name% cron -q
+15 7 * * * %command.full_name% -q
             ')
         ;
     }
