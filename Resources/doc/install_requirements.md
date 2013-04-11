@@ -13,6 +13,11 @@ sudo apt-get install imagemagick
 sudo apt-get install libav-tools
 ```
 
+For h264 mp4 video encoding:
+```
+sudo apt-get install libavcodec-extra-53
+```
+
 ### 3) PHP PECL MailParse
 
 The MailParse extension is can be downloaded from here: [http://pecl.php.net/package/mailparse](http://pecl.php.net/package/mailparse)

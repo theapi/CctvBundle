@@ -155,9 +155,14 @@ class ImageManager
   }
 
   public function createVideo($dir) {
-    // avconv -y -v quiet -r 1 -f image2 -i img_%04d.jpg -r 25 -b 65536k a.avi
     $dir = escapeshellarg($dir);
-    $cmd = 'avconv -y -v quiet -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -r 25 -b 65536k ' . $dir . '/activity.avi';
+
+    // avconv -y -v quiet -r 1 -f image2 -i img_%04d.jpg -r 25 -b 65536k a.avi
+    //$cmd = 'avconv -y -v quiet -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -r 25 -b 65536k ' . $dir . '/activity.avi';
+
+    // avconv -y -v quiet -r 1 -f image2 -i img_%04d.jpg -vcodec libx264 -preset fast -r 25 activity.mp4
+    $cmd = 'avconv -y -v quiet -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -vcodec libx264 -preset fast -r 25 ' . $dir . '/activity.mp4';
+
     $this->process->setCommandLine($cmd);
     $this->process->run();
     if (!$this->process->isSuccessful()) {
