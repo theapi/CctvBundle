@@ -7,4 +7,15 @@
     <route id="theapi_cctv_homepage" pattern="/cctv">
         <default key="_controller">TheapiCctvBundle:Default:index</default>
     </route>
+    
+    <route id="theapi_cctv_video" pattern="/cctv/video/{date}">
+        <default key="_controller">TheapiCctvBundle:Default:video</default>
+        <default key="date">today</default>
+    </route>
+    
+    <route id="theapi_cctv_vid" pattern="/cctv/vid/{date}">
+        <default key="_controller">TheapiCctvBundle:Default:vid</default>
+        <default key="date">today</default>
+    </route>
+    
 </routes>

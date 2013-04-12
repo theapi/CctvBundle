@@ -2,6 +2,7 @@
 namespace Theapi\CctvBundle;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\Finder;
 
 /**
  *
@@ -170,6 +171,29 @@ class ImageManager
     }
     $output = $this->process->getOutput();
     return trim($output);
+  }
+
+  public function getVideoFile($date) {
+
+    if (empty($date)) {
+      // Use the directory for today
+      $date = date('Y-m-d');
+    } else {
+      // enforce date is in the format Y-m-d
+      $date = date('Y-m-d', strtotime($date));
+    }
+
+    $dir = $this->saveDir . '/in_' . $date;
+    if (is_dir($dir)) {
+      $processedDir = $this->saveDir . '/p_' . $date;
+      $finder = new Finder();
+      $finder->files()->in($processedDir)->name('activity.mp4');
+      foreach ($finder as $file) {
+          return $file->getRealpath();
+      }
+    }
+
+    throw new \Exception('Video for ' . $date . ' not found');
   }
 
   public function deleteOldDirectories($processed = false) {
