@@ -1,10 +1,6 @@
 {% extends 'TheapiCctvBundle::layout.html.twig' %}
 
-{% block title 'Video' %}
-
 {% block content %}
-
-<h1>Video for  {{ date }}</h1>
 
 <div class="block">
   <video width="352" height="288" controls>
@@ -12,5 +8,7 @@
   Your browser does not support the video tag.
   </video>
 </div>
+
+<h1>Video for  {{ date }}</h1>
 
 {% endblock %}
