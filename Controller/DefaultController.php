@@ -19,6 +19,10 @@ class DefaultController extends Controller
         return $this->render('TheapiCctvBundle:Default:index.html.twig', array('date' => $date));
     }
 
+    /**
+     * This doesn't work too well. Android chrome will hang on longer videos
+     * @param string $date
+     */
     public function vidAction($date)
     {
         $imageManager = $this->get('theapi_cctv.image_manager');
