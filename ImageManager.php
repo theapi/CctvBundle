@@ -1,6 +1,8 @@
 <?php
 namespace Theapi\CctvBundle;
 
+use Symfony\Component\Filesystem\Filesystem;
+
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -162,7 +164,7 @@ class ImageManager
     //$cmd = 'avconv -y -v quiet -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -r 25 -b 65536k ' . $dir . '/activity.avi';
 
     // avconv -y -v quiet -r 1 -f image2 -i img_%04d.jpg -vcodec libx264 -preset fast -r 25 activity.mp4
-    $cmd = 'avconv -y -v quiet -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -vcodec libx264 -preset fast -r 25 ' . $dir . '/activity.mp4';
+    $cmd = 'avconv -y -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -vcodec libx264 -preset fast -r 25 ' . $dir . '/activity.mp4';
 
     $this->process->setCommandLine($cmd);
     $this->process->run();
@@ -173,7 +175,7 @@ class ImageManager
     return trim($output);
   }
 
-  public function getVideoFile($date) {
+  public function getVideoFile($date = null) {
 
     if (empty($date)) {
       // Use the directory for today
@@ -189,7 +191,7 @@ class ImageManager
       $finder = new Finder();
       $finder->files()->in($processedDir)->name('activity.mp4');
       foreach ($finder as $file) {
-          return $file->getRealpath();
+        return $processedDir . '/' . $file->getRelativePathname();
       }
     }
 

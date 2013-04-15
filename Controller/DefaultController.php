@@ -11,12 +11,27 @@ class DefaultController extends Controller
 
     public function indexAction()
     {
-        return $this->render('TheapiCctvBundle:Default:index.html.twig', array('date' => 'today'));
+        return $this->videoAction();
     }
 
-    public function videoAction($date)
+    public function videoAction($date = null)
     {
-        return $this->render('TheapiCctvBundle:Default:index.html.twig', array('date' => $date));
+        $imageManager = $this->get('theapi_cctv.image_manager');
+        try {
+            $file = $imageManager->getVideoFile($date);
+            $root = $this->get('service_container')->getParameter('theapi_cctv.web_root');
+            $file = str_replace($root, '', $file);
+            return $this->render(
+                'TheapiCctvBundle:Default:index.html.twig',
+                array(
+                    'file' => $file,
+                    'date' => $date,
+                )
+            );
+        } catch (\Exception $e) {
+          throw $this->createNotFoundException($e->getMessage());
+        }
+
     }
 
     /**
@@ -30,7 +45,7 @@ class DefaultController extends Controller
           $file = $imageManager->getVideoFile($date);
           return new BinaryFileResponse($file);
         } catch (\Exception $e) {
-          // 404
+          throw $this->createNotFoundException($e->getMessage());
         }
     }
 

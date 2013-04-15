@@ -2,6 +2,9 @@
 
 namespace Theapi\CctvBundle\DependencyInjection;
 
+use Symfony\Component\Finder\Finder;
+
+
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -17,12 +20,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
+
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('theapi_cctv');
 
         $rootNode
             ->children()
-                ->scalarNode('save_dir')->defaultValue('/tmp/cctv')->end()
+                ->scalarNode('web_root')->end()
+                ->scalarNode('save_dir')->end()
                 ->arrayNode('image_settings')
                     ->addDefaultsIfNotSet()
                     ->children()
