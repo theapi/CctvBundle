@@ -204,7 +204,11 @@ class ImageManager
       $finder = new Finder();
       $finder->files()->in($this->saveDir)->depth('== 2')->name('activity.mp4')->sortByModifiedTime();
       foreach ($finder as $file) {
-        return $this->saveDir . '/' . $file->getRelativePathname();
+        // sortByModifiedTime() returns oldest first, so get the last one
+        $path = $this->saveDir . '/' . $file->getRelativePathname();
+      }
+      if (isset($path)) {
+        return $path;
       }
     }
 

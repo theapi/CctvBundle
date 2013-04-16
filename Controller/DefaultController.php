@@ -21,13 +21,7 @@ class DefaultController extends Controller
             $file = $imageManager->getVideoFile($date);
             $root = $this->get('service_container')->getParameter('theapi_cctv.web_root');
             $file = str_replace($root, '', $file);
-            return $this->render(
-                'TheapiCctvBundle:Default:index.html.twig',
-                array(
-                    'file' => $file,
-                    'date' => $date,
-                )
-            );
+            return $this->render('TheapiCctvBundle:Default:index.html.twig', array('file' => $file));
         } catch (\Exception $e) {
           throw $this->createNotFoundException($e->getMessage());
         }
