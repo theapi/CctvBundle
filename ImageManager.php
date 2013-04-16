@@ -177,6 +177,11 @@ class ImageManager
 
   public function getVideoFile($date = null) {
 
+    if ($date === null) {
+      // find the latest video
+      $findLatest = true;
+    }
+
     if (empty($date)) {
       // Use the directory for today
       $date = date('Y-m-d');
@@ -192,6 +197,14 @@ class ImageManager
       $finder->files()->in($processedDir)->name('activity.mp4');
       foreach ($finder as $file) {
         return $processedDir . '/' . $file->getRelativePathname();
+      }
+    }
+
+    if (!empty($findLatest)) {
+      $finder = new Finder();
+      $finder->files()->in($this->saveDir)->depth('== 2')->name('activity.mp4')->sortByModifiedTime();
+      foreach ($finder as $file) {
+        return $this->saveDir . '/' . $file->getRelativePathname();
       }
     }
 
