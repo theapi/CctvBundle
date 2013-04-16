@@ -167,12 +167,11 @@ class ImageManager
     $cmd = 'avconv -y -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -vcodec libx264 -preset fast -r 25 ' . $dir . '/activity.mp4';
 
     $this->process->setCommandLine($cmd);
-    $this->process->run();
+    $this->process->run(array($this, 'writeProcessCallbackln'));
+
     if (!$this->process->isSuccessful()) {
       throw new \RuntimeException($this->process->getErrorOutput());
     }
-    $output = $this->process->getOutput();
-    return trim($output);
   }
 
   public function getVideoFile($date = null) {
@@ -263,18 +262,24 @@ class ImageManager
     }
   }
 
+  public function writeln($str) {
+    if (!empty($this->output)) {
+      $this->output->writeln($str);
+    }
+  }
+
+  public function writeProcessCallbackln($type, $buffer) {
+    if (!empty($this->output)) {
+      $this->output->writeln($buffer);
+    }
+  }
+
   protected function copyWithDatestamp($i, $source, $destination, $imgName) {
     $string = $imgName;
     if ($im = imagecreatefromjpeg($source . '/' . $imgName)) {
       $textColor = imagecolorallocate ($im, 0, 0,0);
       imagestring ($im, 5, 3, 3, $string, $textColor);
       imagejpeg($im, $destination . '/img_' . sprintf('%04d', $i) . '.jpg', 100);
-    }
-  }
-
-  protected function writeln($str) {
-    if (!empty($this->output)) {
-      $this->output->writeln($str);
     }
   }
 
