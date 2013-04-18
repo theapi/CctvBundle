@@ -116,7 +116,7 @@ class ImageManager
       // copy the first image
       if ($key == 0) {
         $img = trim(str_replace($dir, '', $images[$key]), '/');
-        $this->copyWithDatestamp($i, $dir, $destinationDir, $img);
+        $this->copyWithInfo($i, $dir, $destinationDir, $img);
         $i++;
       } else {
         $prev = $key - 1;
@@ -128,7 +128,7 @@ class ImageManager
           $this->writeln($text);
 
           // copy image to the destination directory
-          $this->copyWithDatestamp($i, $dir, $destinationDir, $img);
+          $this->copyWithInfo($i, $dir, $destinationDir, $img);
           $i++;
         } else {
           $this->writeln($img . ': ' . $val);
@@ -274,9 +274,13 @@ class ImageManager
     }
   }
 
-  protected function copyWithDatestamp($i, $source, $destination, $imgName) {
+  protected function copyWithInfo($i, $source, $destination, $imgName) {
     $string = $imgName;
     if ($im = imagecreatefromjpeg($source . '/' . $imgName)) {
+      $height = 20;
+      $width = 240;
+      $backColor = imagecolorallocatealpha($im, 255, 255, 255, 90);
+      imagefilledrectangle($im, 0, 0, $width, $height, $backColor);
       $textColor = imagecolorallocate ($im, 0, 0,0);
       imagestring ($im, 5, 3, 3, $string, $textColor);
       imagejpeg($im, $destination . '/img_' . sprintf('%04d', $i) . '.jpg', 100);
