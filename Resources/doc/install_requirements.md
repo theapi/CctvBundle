@@ -60,3 +60,11 @@ The contents of which are:
 extension=mailparse.so
 ```
 
+### 4) Install & configure postfix to receive the emails
+
+Add a .forward file to the user that will receive the emails that forwards to the app:
+```
+| "php /mnt/www/repos/symfony/app/console cctv:inbox"
+```
+
+
