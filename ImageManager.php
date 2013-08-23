@@ -167,6 +167,7 @@ class ImageManager
     $cmd = 'avconv -y -r 1 -f image2 -i ' . $dir . '/img_%04d.jpg -vcodec libx264 -preset fast -r 25 ' . $dir . '/activity.mp4';
 
     $this->process->setCommandLine($cmd);
+    $this->process->setTimeout(3600);
     $this->process->run(array($this, 'writeProcessCallbackln'));
 
     if (!$this->process->isSuccessful()) {
