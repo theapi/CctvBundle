@@ -43,11 +43,12 @@ public function registerBundles()
     );
 }
 ```
-### C) Add the route to routing.xml
+### C) Add the route to routing.yml
 ```
-_cctv:
-    pattern:  /cctv
-    defaults: { _controller: TheapiCctvBundle:Default:index }
+theapi_cctv:
+    resource: "@TheapiCctvBundle/Resources/config/routing.xml"
+    prefix:   /
+
 ```
 
     
