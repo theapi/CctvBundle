@@ -3,6 +3,11 @@ Installing the requirements
 
 >These instructions are for Ubuntu.
 
+### Php gd extension
+```
+sudo apt-get install php5-gd
+```
+
 ### 1) ImageMagick
 ```
 sudo apt-get install imagemagick
