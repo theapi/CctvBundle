@@ -3,6 +3,11 @@ Installing the requirements
 
 >These instructions are for Ubuntu.
 
+### Php gd extension
+```
+sudo apt-get install php5-gd
+```
+
 ### 1) ImageMagick
 ```
 sudo apt-get install imagemagick
@@ -59,4 +64,14 @@ The contents of which are:
 ; configuration for mailparse module
 extension=mailparse.so
 ```
+
+### 4) Install & configure postfix to receive the emails
+
+See [https://help.ubuntu.com/community/PostfixBasicSetupHowto](https://help.ubuntu.com/community/PostfixBasicSetupHowto)
+
+Add a .forward file to the user that will receive the emails that forwards to the app:
+```
+| "php /var/www/app/console cctv:inbox"
+```
+
 

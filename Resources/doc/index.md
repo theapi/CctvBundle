@@ -22,7 +22,9 @@ Ultimately, the CctvBundle files should be downloaded to the
 Simply run assuming you have installed composer.phar or composer binary:
 
 ``` bash
-$ composer require theapi/cctvbundle
+$ composer require messaged/php-mime-mail-parser dev-master
+
+$ composer require theapi/cctvbundle dev-master
 ```
 
 ### B) Enable the bundle
@@ -41,11 +43,12 @@ public function registerBundles()
     );
 }
 ```
-### C) Add the route to routing.xml
+### C) Add the route to routing.yml
 ```
-_cctv:
-    pattern:  /cctv
-    defaults: { _controller: TheapiCctvBundle:Default:index }
+theapi_cctv:
+    resource: "@TheapiCctvBundle/Resources/config/routing.xml"
+    prefix:   /
+
 ```
 
     
