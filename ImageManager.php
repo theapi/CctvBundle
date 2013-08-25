@@ -274,6 +274,38 @@ class ImageManager
     }
   }
 
+  /**
+   * Get images for the given date
+   *
+   * @param string $date
+   * @throws \Exception
+   * @return string
+   */
+  public function getImages($date = null) {
+
+    if (empty($date)) {
+      // Use the directory for today
+      $date = date('Y-m-d');
+    } else {
+      // enforce date is in the format Y-m-d
+      $date = date('Y-m-d', strtotime($date));
+    }
+
+    $dir = $this->saveDir . '/in_' . $date;
+    $files = array();
+    if (is_dir($dir)) {
+      $finder = new Finder();
+      $finder->files()->in($dir)->name('*.jpg')->sortByName();
+      foreach ($finder as $file) {
+        $files[] =  '/in_' . $date . '/' . $file->getRelativePathname();
+      }
+
+      return $files;
+    }
+
+    throw new \Exception('Images for ' . $date . ' not found');
+  }
+
   protected function copyWithInfo($i, $source, $destination, $imgName) {
     $string = $imgName;
     if ($im = imagecreatefromjpeg($source . '/' . $imgName)) {
