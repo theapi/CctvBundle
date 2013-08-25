@@ -301,7 +301,8 @@ class ImageManager
         $files[] =  '/in_' . $date . '/' . $file->getRelativePathname();
       }
 
-      return $files;
+      return array_slice($files, -10);
+      //return $files;
     }
 
     throw new \Exception('Images for ' . $date . ' not found');
