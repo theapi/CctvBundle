@@ -112,7 +112,7 @@ class MailParser
         $dir .= '/' . $channel;
 
         // write the file to the directory you want to save it in
-        @mkdir($dir, 0755, true);
+        @mkdir($dir, 0777, true);
         if ($fp = fopen($dir . '/' . $filename, 'w')) {
           while($bytes = $attachment->read()) {
             fwrite($fp, $bytes);
