@@ -51,5 +51,18 @@ theapi_cctv:
 
 ```
 
+### D) Add the required configurations to app/config/config.yml
+```
+theapi_cctv:
+   web_root: /var/www/Symfony/web
+   # For now the save dir must be in the the web root so apache can serve it directly
+   save_dir: /var/www/Symfony/web/save_dir
+   image_settings:
+       diff_threshold: 600
+   mailer_sender:
+       from: from@example.com
+       to:   to@example.com
+
+```
     
 
