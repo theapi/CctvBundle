@@ -18,6 +18,15 @@
         <default key="date">today</default>
     </route>
     
+    <route id="theapi_cctv_image" pattern="/image">
+        <default key="_controller">TheapiCctvBundle:Image:index</default>
+    </route>
+    
+    <route id="theapi_cctv_image_id" pattern="/image/{id}">
+        <default key="_controller">TheapiCctvBundle:Image:id</default>
+        <default key="date">today</default>
+    </route>
+    
     <route id="theapi_cctv_slideshow" pattern="/slideshow">
         <default key="_controller">TheapiCctvBundle:Slideshow:index</default>
     </route>

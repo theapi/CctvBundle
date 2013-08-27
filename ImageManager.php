@@ -282,7 +282,12 @@ class ImageManager
    * @throws \Exception
    * @return string
    */
-  public function getImages($date = null) {
+  public function getImages($date = null, $limit = 10) {
+
+    if ($date === null) {
+      // find the latest directory
+      $findLatest = true;
+    }
 
     if (empty($date)) {
       // Use the directory for today
@@ -300,13 +305,60 @@ class ImageManager
       foreach ($finder as $file) {
         $files[] =  '/in_' . $date . '/' . $file->getRelativePathname();
       }
-
-      return array_slice($files, -10);
-      //return $files;
+      return array_slice($files, -$limit);
     }
 
-    throw new \Exception('Images for ' . $date . ' not found');
+    if (!empty($findLatest)) {
+      $scan = scandir($this->saveDir, 1); // descending order (not provided by Finder)
+
+      foreach ($scan as $file) {
+        if ($file === '.' || $file === '..') {
+          continue;
+        }
+        if (substr($file, 0, 3) == 'in_' && is_dir($this->saveDir . '/' . $file)) {
+          $dir = $file;
+          $finder = new Finder();
+          $finder->files()->in($this->saveDir . '/' . $dir)->name('*.jpg')->sortByName();
+          foreach ($finder as $file) {
+            $files[] = $dir . '/' . $file->getRelativePathname();
+          }
+          if (count($files) > 0) {
+            return array_slice($files, -$limit);
+          }
+        }
+      }
+
+    }
+
+    throw new \Exception('Images not found');
   }
+
+  public function getImage($id = null) {
+
+    if (isset($this->images[$id])) {
+      return $this->images[$id];
+    }
+
+    if ($id == null) {
+      try {
+        $files = $this->getImages($date = null, $limit = 2);
+        $this->images[$id] = $files[0];
+        return $this->saveDir . '/' . $images[$id];
+      } catch (\Exception $e) {
+        throw $e;
+      }
+    }
+
+  }
+
+  public function getPreviousImage($id = null) {
+
+  }
+
+  public function getNextImage($id = null) {
+
+  }
+
 
   protected function copyWithInfo($i, $source, $destination, $imgName) {
     $string = $imgName;
