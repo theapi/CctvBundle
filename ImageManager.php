@@ -341,9 +341,9 @@ class ImageManager
 
     if ($id == null) {
       try {
-        $files = $this->getImages($date = null, $limit = 2);
+        $files = $this->getImages(null, 2);
         $this->images[$id] = $files[0];
-        return $this->saveDir . '/' . $images[$id];
+        return $this->saveDir . '/' . $this->images[$id];
       } catch (\Exception $e) {
         throw $e;
       }
