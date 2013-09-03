@@ -1,14 +1,109 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
-        <meta name="robots" content="noindex,nofollow" />
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        <div id="content">
-            {% block content %}{% endblock %}
-        </div>
-    </body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
+<meta name="robots" content="noindex,nofollow" />
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+{% block head %}{% endblock %}
+
+<!-- disable iPhone inital scale -->
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+<title>Demo: Adaptive Design With Media Queries</title>
+
+<!-- main css -->
+<link href="/bundles/theapicctv/css/style.css" rel="stylesheet" type="text/css">
+
+<!-- media queries css -->
+<link href="/bundles/theapicctv/css/media-queries.css" rel="stylesheet" type="text/css">
+
+<!-- html5.js for IE less than 9 -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- css3-mediaqueries.js for IE less than 9 -->
+<!--[if lt IE 9]>
+  <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+  <header id="header">
+
+    <hgroup>
+      <h1 id="site-logo"><a href="#">TheApi</a></h1>
+      <h2 id="site-description">CCTV</h2>
+    </hgroup>
+
+    <nav>
+      <ul id="main-nav" class="clearfix">
+        <li><a href="/">Home</a></li>
+        <li><a href="/image">Image</a></li>
+        <li><a href="/cctv">CCTV</a></li>
+      </ul>
+      <!-- /#main-nav --> 
+    </nav>
+
+    <form id="searchform">
+      <input type="search" id="s" placeholder="Search">
+    </form>
+
+  </header>
+  <!-- /#header -->
+  
+  <div id="content">
+
+    <article class="post clearfix">
+
+{% block content %}{% endblock %}
+
+    </article>
+    <!-- /.post -->
+
+  </div>
+  <!-- /#content --> 
+  
+  
+  <aside id="sidebar">
+  
+{% block sidebar %}{% endblock %}
+
+<!--
+    <section class="widget">
+      <h4 class="widgettitle">Sidebar</h4>
+      <ul>
+        <li><a href="#">AAA</a></li>
+        <li><a href="#">BBB</a></li>
+        <li><a href="#">CCC </a></li>
+      </ul>
+    </section>
+
+
+    <section class="widget clearfix">
+      <h4 class="widgettitle">Foo</h4>
+      
+    </section>
+
+-->
+           
+  </aside>
+  <!-- /#sidebar -->
+
+  <footer id="footer">
+  
+
+  </footer>
+  <!-- /#footer --> 
+  
+</div>
+<!-- /#pagewrap -->
+
+</body>
 </html>
