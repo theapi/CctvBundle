@@ -18,25 +18,25 @@ class ImageController extends Controller
     {
         $imageManager = $this->get('theapi_cctv.image_manager');
         try {
-          $root = $this->get('service_container')->getParameter('theapi_cctv.web_root');
+            $root = $this->get('service_container')->getParameter('theapi_cctv.web_root');
 
-          $file = $imageManager->getImage($id);
-          $file = str_replace($root, '', $file);
+            $file = $imageManager->getImage($id);
+            $file = str_replace($root, '', $file);
 
-          $previous = $imageManager->getPreviousImage($id);
-          $next = $imageManager->getNextImage($id);
-          return $this->render(
-            'TheapiCctvBundle:Image:index.html.twig',
-            array(
-              'file' => $file,
-              'previous' => $previous,
-              'next' => $next,
-            )
-          );
+            $previous = $imageManager->getPreviousImage($id);
+            $next = $imageManager->getNextImage($id);
+
+            return $this->render(
+                'TheapiCctvBundle:Image:index.html.twig',
+                array(
+                      'file' => $file,
+                      'previous' => $previous,
+                      'next' => $next,
+                )
+            );
         } catch (\Exception $e) {
-          throw $this->createNotFoundException($e->getMessage());
+            throw $this->createNotFoundException($e->getMessage());
         }
 
     }
-
 }
