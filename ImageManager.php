@@ -263,114 +263,122 @@ class ImageManager
     }
   }
 
-  public function writeln($str) {
-    if (!empty($this->output)) {
-      $this->output->writeln($str);
-    }
-  }
-
-  public function writeProcessCallbackln($type, $buffer) {
-    if (!empty($this->output)) {
-      $this->output->writeln($buffer);
-    }
-  }
-
-  /**
-   * Get images for the given date
-   *
-   * @param string $date
-   * @throws \Exception
-   * @return string
-   */
-  public function getImages($date = null, $limit = 10) {
-
-    if ($date === null) {
-      // find the latest directory
-      $findLatest = true;
-    }
-
-    if (empty($date)) {
-      // Use the directory for today
-      $date = date('Y-m-d');
-    } else {
-      // enforce date is in the format Y-m-d
-      $date = date('Y-m-d', strtotime($date));
-    }
-
-    $dir = $this->saveDir . '/in_' . $date;
-    $files = array();
-    if (is_dir($dir)) {
-      $finder = new Finder();
-      $finder->files()->in($dir)->name('*.jpg')->sortByName();
-      foreach ($finder as $file) {
-        $files[] =  '/in_' . $date . '/' . $file->getRelativePathname();
-      }
-      return array_slice($files, -$limit);
-    }
-
-    if (!empty($findLatest)) {
-      $scan = scandir($this->saveDir, 1); // descending order (not provided by Finder)
-
-      foreach ($scan as $file) {
-        if ($file === '.' || $file === '..') {
-          continue;
+    public function writeln($str)
+    {
+        if (!empty($this->output)) {
+            $this->output->writeln($str);
         }
-        if (substr($file, 0, 3) == 'in_' && is_dir($this->saveDir . '/' . $file)) {
-          $dir = $file;
-          $finder = new Finder();
-          $finder->files()->in($this->saveDir . '/' . $dir)->name('*.jpg')->sortByName();
-          foreach ($finder as $file) {
-            $files[] = $dir . '/' . $file->getRelativePathname();
-          }
-          if (count($files) > 0) {
+    }
+
+    public function writeProcessCallbackln($type, $buffer)
+    {
+        if (!empty($this->output)) {
+            $this->output->writeln($buffer);
+        }
+    }
+
+    /**
+    * Get images for the given date
+    *
+    * @param string $date
+    * @throws \Exception
+    * @return string
+    */
+    public function getImages($date = null, $limit = 10)
+    {
+
+        if ($date === null) {
+            // find the latest directory
+            $findLatest = true;
+        }
+
+        if (empty($date)) {
+            // Use the directory for today
+            $date = date('Y-m-d');
+        } else {
+            // enforce date is in the format Y-m-d
+            $date = date('Y-m-d', strtotime($date));
+        }
+
+        $dir = $this->saveDir . '/in_' . $date;
+        $files = array();
+        if (is_dir($dir)) {
+            $finder = new Finder();
+            $finder->files()->in($dir)->name('*.jpg')->sortByName();
+            foreach ($finder as $file) {
+                $files[] =  '/in_' . $date . '/' . $file->getRelativePathname();
+            }
+
             return array_slice($files, -$limit);
-          }
         }
-      }
+
+        if (!empty($findLatest)) {
+            $scan = scandir($this->saveDir, 1); // descending order (not provided by Finder)
+
+            foreach ($scan as $file) {
+                if ($file === '.' || $file === '..') {
+                    continue;
+                }
+                if (substr($file, 0, 3) == 'in_' && is_dir($this->saveDir . '/' . $file)) {
+                    $dir = $file;
+                    $finder = new Finder();
+                    $finder->files()->in($this->saveDir . '/' . $dir)->name('*.jpg')->sortByName();
+                    foreach ($finder as $file) {
+                        $files[] = $dir . '/' . $file->getRelativePathname();
+                    }
+                    if (count($files) > 0) {
+
+                        return array_slice($files, -$limit);
+                    }
+                }
+            }
+
+        }
+
+        throw new \Exception('Images not found');
+    }
+
+    public function getImage($id = null)
+    {
+
+        if (isset($this->images[$id])) {
+            return $this->images[$id];
+        }
+
+        if ($id == null) {
+            try {
+                $files = $this->getImages(null, 2);
+                $this->images[$id] = $files[0];
+
+                return $this->saveDir . '/' . $this->images[$id];
+            } catch (\Exception $e) {
+                throw $e;
+            }
+        }
+    }
+
+    public function getPreviousImage($id = null)
+    {
 
     }
 
-    throw new \Exception('Images not found');
-  }
+    public function getNextImage($id = null)
+    {
 
-  public function getImage($id = null) {
-
-    if (isset($this->images[$id])) {
-      return $this->images[$id];
     }
 
-    if ($id == null) {
-      try {
-        $files = $this->getImages(null, 2);
-        $this->images[$id] = $files[0];
-        return $this->saveDir . '/' . $this->images[$id];
-      } catch (\Exception $e) {
-        throw $e;
-      }
+
+    protected function copyWithInfo($i, $source, $destination, $imgName)
+    {
+        $string = $imgName;
+        if ($im = imagecreatefromjpeg($source . '/' . $imgName)) {
+            $height = 20;
+            $width = 240;
+            $backColor = imagecolorallocatealpha($im, 255, 255, 255, 90);
+            imagefilledrectangle($im, 0, 0, $width, $height, $backColor);
+            $textColor = imagecolorallocate ($im, 0, 0,0);
+            imagestring ($im, 5, 3, 3, $string, $textColor);
+            imagejpeg($im, $destination . '/img_' . sprintf('%04d', $i) . '.jpg', 100);
+        }
     }
-
-  }
-
-  public function getPreviousImage($id = null) {
-
-  }
-
-  public function getNextImage($id = null) {
-
-  }
-
-
-  protected function copyWithInfo($i, $source, $destination, $imgName) {
-    $string = $imgName;
-    if ($im = imagecreatefromjpeg($source . '/' . $imgName)) {
-      $height = 20;
-      $width = 240;
-      $backColor = imagecolorallocatealpha($im, 255, 255, 255, 90);
-      imagefilledrectangle($im, 0, 0, $width, $height, $backColor);
-      $textColor = imagecolorallocate ($im, 0, 0,0);
-      imagestring ($im, 5, 3, 3, $string, $textColor);
-      imagejpeg($im, $destination . '/img_' . sprintf('%04d', $i) . '.jpg', 100);
-    }
-  }
-
 }
