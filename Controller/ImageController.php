@@ -22,6 +22,7 @@ class ImageController extends Controller
 
             $file = $imageManager->getImage($id);
             $file = str_replace($root, '', $file);
+            $filename = basename($file);
 
             $previous = $imageManager->getPreviousImage($id);
             $next = $imageManager->getNextImage($id);
@@ -29,9 +30,10 @@ class ImageController extends Controller
             return $this->render(
                 'TheapiCctvBundle:Image:index.html.twig',
                 array(
-                      'file' => $file,
-                      'previous' => $previous,
-                      'next' => $next,
+                    'file' => $file,
+                    'filename' => $filename,
+                    'previous' => $previous,
+                    'next' => $next,
                 )
             );
         } catch (\Exception $e) {
