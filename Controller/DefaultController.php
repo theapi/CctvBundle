@@ -4,6 +4,7 @@ namespace Theapi\CctvBundle\Controller;
 
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
@@ -29,18 +30,27 @@ class DefaultController extends Controller
     }
 
     /**
-     * This doesn't work too well. Android chrome will hang on longer videos
+     * Serve the file using BinaryFileResponse.
+     * 
      * @param string $date
      */
     public function vidAction($date)
     {
         $imageManager = $this->get('theapi_cctv.image_manager');
         try {
-          $file = $imageManager->getVideoFile($date);
-          return new BinaryFileResponse($file);
+            $filename = $imageManager->getVideoFile($date);
+            $response = new BinaryFileResponse($filename);
+            $response->trustXSendfileTypeHeader();
+            $response->setContentDisposition(
+                ResponseHeaderBag::DISPOSITION_INLINE,
+                $filename,
+                iconv('UTF-8', 'ASCII//TRANSLIT', $filename)
+            );
         } catch (\Exception $e) {
-          throw $this->createNotFoundException($e->getMessage());
+            throw $this->createNotFoundException($e->getMessage());
         }
+        
+        return $response;
     }
 
 }
