@@ -35,6 +35,13 @@ class MailParser
   protected $mailSender;
 
   /**
+   * Saved files that were attached in the email.
+   *
+   * @var array
+   */
+  protected $files = array();
+
+  /**
    * Constructor
    *
    */
@@ -85,6 +92,19 @@ class MailParser
       return;
     }
 
+    // Perfom actions depending on which channel the image came from.
+    //@todo: make channel actions configurable.
+    $channelActions = array('CH02' => array('passOnMessage'));
+
+    foreach ($this->files as $filename) {
+      $channel = $this->getChannelFromFilename($filename);
+      if (isset($channelActions[$channel])) {
+        foreach ($channelActions[$channel] as $action) {
+          $this->$action();
+        }
+      }
+    }
+
     // When was the last email sent?
 
     // If not too recent, attach the images that have not yet been sent
@@ -95,7 +115,7 @@ class MailParser
     if (!empty($this->mailSender)) {
       $subject = '(Robocop) ' . $this->parser->getHeader('subject');
       $body = $this->parser->getMessageBody('text');
-      $sent = $this->mailSender->sendMail($subject, $body, null);
+      $sent = $this->mailSender->sendMail($subject, $body, $this->files);
     }
   }
 
@@ -107,9 +127,11 @@ class MailParser
         // get the attachment name
         $filename = $attachment->filename;
 
+
         // Separate directory per channel
         $channel = $this->getChannelFromFilename($filename);
         $dir .= '/' . $channel;
+
 
         // write the file to the directory you want to save it in
         @mkdir($dir, 0777, true);
@@ -118,6 +140,7 @@ class MailParser
             fwrite($fp, $bytes);
           }
           fclose($fp);
+          $this->files[] = $dir . '/' . $filename;
         }
       }
       return $attachments;

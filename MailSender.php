@@ -50,7 +50,13 @@ class MailSender
     ;
 
     if (!empty($filePath)) {
-        $message->attach(\Swift_Attachment::fromPath($filePath));
+        if (is_array($filePath)) {
+            foreach ($filePath as $file) {
+                $message->attach(\Swift_Attachment::fromPath($file));
+            }
+        } else {
+            $message->attach(\Swift_Attachment::fromPath($filePath));
+        }
     }
 
     return $this->mailer->send($message);
