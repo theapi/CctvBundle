@@ -3,8 +3,7 @@ namespace Theapi\CctvBundle;
 
 use MimeMailParser\Parser;
 use MimeMailParser\Attachment;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 /**
  *
@@ -18,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Parse email
  */
-class MailParser extends ContainerAware
+class MailParser
 {
 
   /**
@@ -43,10 +42,6 @@ class MailParser extends ContainerAware
    */
   protected $files = array();
 
-      /**
-     * The event dispatcher
-     */
-    protected $eventDispatcher;
 
   /**
    * Constructor
@@ -62,24 +57,6 @@ class MailParser extends ContainerAware
         $this->mailSender = $mailSender;
     }
 
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-        $this->addListeners();
-    }
-
-    public function addListeners()
-    {
-        $this->eventDispatcher = $this->container->get('event_dispatcher');
-        $this->eventDispatcher->addListener('blindfold.open', array($this, 'blindfoldListener'));
-        $this->eventDispatcher->addListener('blindfold.close', array($this, 'blindfoldListener'));
-    }
-
-    public function blindfoldListener()
-    {
-        // Remember when it was moved so as not to forward email about it opening.
-        touch('/tmp/cctv_bf_moved');
-    }
 
   public function processIncomingMail() {
     $this->parser->setStream(STDIN);
@@ -138,8 +115,8 @@ class MailParser extends ContainerAware
   protected function blindfoldMotion()
   {
       $now = time();
-      if (file_exists('/tmp/cctv_bf_moved')) {
-          $modified = filemtime('/tmp/cctv_bf_moved');
+      if (file_exists('/tmp/cctvbf_moved')) {
+          $modified = filemtime('/tmp/cctvbf_moved');
       }
 
       if (!isset($modified) || ($now - $modified > 180)) {
