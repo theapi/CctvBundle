@@ -115,8 +115,8 @@ class MailParser
   protected function blindfoldMotion()
   {
       $now = time();
-      if (file_exists('/tmp/cctvbf_moved')) {
-          $modified = filemtime('/tmp/cctvbf_moved');
+      if (file_exists('/run/cctvbf_moved')) {
+          $modified = filemtime('/run/cctvbf_moved');
       }
 
       if (!isset($modified) || ($now - $modified > 180)) {
