@@ -1,0 +1,110 @@
+{% extends 'TheapiCctvBundle::layout.html.twig' %}
+
+{% block content %}
+
+<div class="block">
+
+<style>
+#lcd{  
+    width:17ex;
+    font-size : 1.5em;
+    line-height : 2ex;
+    color: black;
+}  
+
+#lcd pre {
+    margin: 10px;
+}
+
+</style>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {  
+    
+    if ("WebSocket" in window) {  
+  
+        //The user has WebSockets  
+    
+        connect();  
+    
+        function connect(){  
+            var socket;  
+            var host = "{{ host }}";  
+            var backlight = '0';
+    
+            try{  
+                var socket = new WebSocket(host);  
+    
+                message('Socket Status: ' + socket.readyState);  
+    
+                // NB this is a liitle clumsy as more than one command could be in the message.
+                socket.onmessage = function(msg) {  
+                   $.trim(msg.data);
+                   if (msg.data.indexOf('backlight:') == 0) {
+                     backlight = msg.data.replace('backlight:', '');  
+                     //console.log(backlight);
+                     switch ($.trim(backlight)) {
+                       case 0:
+                         $('#lcd').css('background-color', '#C0C0C0');
+                         break;
+                       case 1:
+                         $('#lcd').css('background-color', '#FFF'); 
+                         break;
+                       case 'red':
+                         $('#lcd').css('background-color', '#FF0000');
+                         break;
+                       case 'green':
+                         $('#lcd').css('background-color', '#00FF00');      
+                         break;
+                       case 'blue':
+                         $('#lcd').css('background-color', '#0000FF');      
+                         break;
+                       case 'yellow':
+                         $('#lcd').css('background-color', '#FFFF00');      
+                         break;
+                       case 'teal':
+                         $('#lcd').css('background-color', '#00FFFF');        
+                         break;
+                       case 'violet':
+                         $('#lcd').css('background-color', '#FF00FF');        
+                         break;
+                       case 'white':
+                         $('#lcd').css('background-color', '#FFF');
+                         break;
+                     
+                     }
+
+                   } else {
+                     message(msg.data);  
+                   }
+                }  
+
+            } catch(exception) {  
+               //message(exception);  
+            }  
+
+            function message(str){  
+              $('#lcd').html('<pre>' + str + '</pre>');  
+              //console.log(str);
+            }   
+    
+        } 
+    
+    }  
+    
+});  
+</script>
+
+<div id="lcd"></div>
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+

@@ -36,4 +36,8 @@
         <default key="date">today</default>
     </route>
     
+    <route id="theapi_cctv_websocket" pattern="/cctv/websocket">
+        <default key="_controller">TheapiCctvBundle:Websocket:index</default>
+    </route>
+    
 </routes>
