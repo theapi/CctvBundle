@@ -144,7 +144,7 @@ class MailParser
             if (!isset($moved) || ($imageTime - $moved > 180)) {
                 $this->passOnMessage();
             }
-        }
+        } catch (\Exception $e) {}
     }
 
   protected function passOnMessage() {
