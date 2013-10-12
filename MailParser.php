@@ -80,7 +80,26 @@ class MailParser
     error_log(print_r($contents, 1), 3, $this->saveDir . "/incoming_mail.txt");
   }
 
-  /**
+    /**
+     * Parses the filename to get the time the image was taken.
+     *
+     * @throws \Exception.
+     */
+    function getDateTimeFromFilename($filename) {
+        // CH02_13_10_12_10_59_36.jpg
+        if (preg_match('/(\d+_\d+_\d+)_(\d+_\d+_\d+)\.jpg/', $filename, $matches)) {
+            $date = str_replace('_', '-', $matches[1]);
+            $time = str_replace('_', ':', $matches[2]);
+            try {
+                return new DateTime($date . ' ' . $time);
+            } catch (\Exception $e) {
+                throw $e;
+            }
+        }
+        throw new \Exception('Unable to parse file name: ' . $filename);
+    }
+
+ /**
    * Parses the filename to get the camera channel the image is from.
    */
   public function getChannelFromFilename($filename) {
@@ -105,24 +124,28 @@ class MailParser
       $channel = $this->getChannelFromFilename($filename);
       if (isset($channelActions[$channel])) {
         foreach ($channelActions[$channel] as $action) {
-          $this->$action();
+          $this->$action($filename);
         }
       }
     }
 
   }
 
-  protected function blindfoldMotion()
-  {
-      $now = time();
-      if (file_exists('/run/cctvbf_moved')) {
-          $modified = filemtime('/run/cctvbf_moved');
-      }
+    protected function blindfoldMotion($filename)
+    {
+        $now = time();
+        if (file_exists('/run/cctvbf_moved')) {
+            $moved = filemtime('/run/cctvbf_moved');
+        }
 
-      if (!isset($modified) || ($now - $modified > 180)) {
-          $this->passOnMessage();
-      }
-  }
+        try {
+            $dateTime = $this->getDateTimeFromFilename($filename);
+            $imageTime = $dateTime->format('U');
+            if (!isset($moved) || ($imageTime - $moved > 180)) {
+                $this->passOnMessage();
+            }
+        }
+    }
 
   protected function passOnMessage() {
     if (!empty($this->mailSender)) {
