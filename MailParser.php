@@ -91,7 +91,7 @@ class MailParser
             $date = str_replace('_', '-', $matches[1]);
             $time = str_replace('_', ':', $matches[2]);
             try {
-                return new DateTime($date . ' ' . $time);
+                return new \DateTime($date . ' ' . $time);
             } catch (\Exception $e) {
                 throw $e;
             }

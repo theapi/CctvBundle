@@ -27,6 +27,13 @@ class ImageController extends Controller
             $previous = $imageManager->getPreviousImage($id);
             $next = $imageManager->getNextImage($id);
 
+
+            try {
+                $mailParser = $this->get('theapi_cctv.mail_parser');
+                $dateTime = $mailParser->getDateTimeFromFilename($filename);
+                $timestamp = $dateTime->format('r');
+            } catch (\Exception $e) {}
+
             return $this->render(
                 'TheapiCctvBundle:Image:index.html.twig',
                 array(
@@ -34,6 +41,7 @@ class ImageController extends Controller
                     'filename' => $filename,
                     'previous' => $previous,
                     'next' => $next,
+                    'timestamp' => $timestamp,
                 )
             );
         } catch (\Exception $e) {
